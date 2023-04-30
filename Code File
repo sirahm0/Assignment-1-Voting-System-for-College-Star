@@ -1,0 +1,236 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+public class F4_2137574 {
+
+    public static void main(String[] args) throws IOException {
+        
+        File file = new File ("output");
+        FileWriter pen = new FileWriter(file, true);
+       
+        //Creating 1d array to store Department Name
+        String departmentName[] = new String[3];
+        for (int i = 0 ; i < departmentName.length ; i++){
+            departmentName[i] = addDepartment()[i];
+        }
+        
+        //Creating 2d array to store Student Names
+        String Names[][] = new String[3][3];
+        for (int i = 0 ; i < Names.length ; i++){
+                for(int j = 0 ; j < Names[i].length ; j++){
+                    Names[i][j] = addStudentsNames()[i][j];
+                }
+        }
+        
+        //Creating 1d array to store Contest Criteria
+        String contestCriteria[] = new String[5];
+        for (int i = 0 ; i < contestCriteria.length ; i++){
+            contestCriteria[i] = addAwardCriteria()[i];
+        }
+        
+        //Creating 3d array to store Scores 
+        int total = 0;
+        int ScoreT[][][] = new int[3][3][6];
+        for (int i = 0 ; i < ScoreT.length ; i++){
+                for(int j = 0 ; j < ScoreT[i].length ; j++){
+                    total =0;
+                    for(int x = 0 ; x < ScoreT[i][j].length -1 ; x++){
+                        ScoreT[i][j][x] = Score[i][j][x];
+                        total+= ScoreT[i][j][x];
+                    }
+                     ScoreT[i][j][5] = total;
+                }
+            }
+        
+        
+        
+       
+        
+        printContestDetails(departmentName ,Names ,contestCriteria ,ScoreT);
+        printWinnerAwardByEachDepartment(departmentName ,Names,ScoreT);
+        printWinnerAwardForCollege(departmentName ,Names,ScoreT);
+        
+        pen.append("\n" + "	Thank you for using the College Star Winner System, Good Bye! ");
+        pen.close();
+     }
+    
+    
+   //Create a method to read Department_Name from file
+   static String[] addDepartment() throws FileNotFoundException {
+       
+        File file = new File("C:\\Users\\ahmal\\Documents\\NetBeansProjects\\F4_2137574\\input.txt.txt");
+        if (file.exists()) {
+        Scanner input = new Scanner(file);
+        String[] Depa = new String[3];
+        
+        int i = 0;
+        skipLines(input , 1);
+        
+        while(input.hasNext() && !input.hasNext("addStudentsNames")){
+            Depa[i] = input.next();
+            i++;
+            }
+        input.close();
+        return Depa;
+        }
+        System.out.println("File not found");
+        return null;
+    }
+    
+   //Create a method  to read student name from file
+   static String[][] addStudentsNames() throws FileNotFoundException{
+        
+       File file = new File("C:\\Users\\ahmal\\Documents\\NetBeansProjects\\F4_2137574\\input.txt.txt");
+       if (file.exists()) {
+       Scanner input = new Scanner(file);
+        
+       String[][] Names = new String[3][3];
+       
+       skipLines(input,3);
+       while(input.hasNext() && !input.hasNext("addAwardCriteria")){
+           
+            for (int i = 0 ; i < Names.length ; i++){
+                for(int j = 0 ; j < Names[i].length ; j++){
+                    Names[i][j] = input.next();
+                }
+            }
+        }
+       input.close();
+       return Names;
+       }
+        System.out.println("File not found");
+        return null;
+   }
+   
+   //Create a method to read contest criteria from file
+   static String[] addAwardCriteria()throws FileNotFoundException{
+       
+   
+       File file = new File("C:\\Users\\ahmal\\Documents\\NetBeansProjects\\F4_2137574\\input.txt.txt");
+        if (file.exists()) {
+        Scanner input = new Scanner(file);
+        String[] Award = new String[5];
+        
+        int i = 0;
+        skipLines(input , 7);
+        while(input.hasNext() && !input.hasNext("addScore")){
+           Award[i] = input.next();
+            i++;
+        }
+        input.close();
+        return Award;
+        }
+        System.out.println("File not found");
+        return null;
+   }
+   
+   //Create a method  to read score from file
+   static int[][][] addScore() throws FileNotFoundException{
+       File file = new File("C:\\Users\\ahmal\\Documents\\NetBeansProjects\\F4_2137574\\input.txt.txt");
+        if (file.exists()) {
+        Scanner input = new Scanner(file);
+        int[][][] score = new int[3][3][5];
+        
+        skipLines(input,9);
+        while(input.hasNext() && !input.hasNext("printcontestDetails")){
+           for (int i = 0 ; i < score.length ; i++){
+                for(int j = 0 ; j < score[i].length ; j++){
+                    for(int x = 0 ; x < score[i][j].length ; x++){
+                        score[i][j][x]= input.nextInt();
+                    }
+                    
+                }
+            }
+        }
+        input.close();
+        return score;
+       
+        }
+        System.out.println("File not found");
+        return null;
+   }
+   
+   //create a method to skip lines in the file
+   static void skipLines(Scanner input, int x) {
+        for (int i = 0; i < x; i++) {
+            if (input.hasNextLine());
+            input.nextLine();
+        }
+    }
+
+   //To remove underscore from the text
+   static String remove_(String string) {
+    return string.replace("_", " ");
+    }
+   
+   //Create a method to pass the arrays to generate contest report and write it in file
+   static void printContestDetails(String[] departmentName, String[][] Names, String[] contestCriteria, int[][][] ScoreT) throws FileNotFoundException {
+       
+       File file = new File("output");
+       PrintWriter pen = new PrintWriter(file);
+       
+       pen.println("***** Welcome to the College Star Winner System *****");
+       
+       int count = 0;
+       for(int f = 0 ; f < departmentName.length ; f++){
+             pen.println(remove_(departmentName[f]));
+             for (int i = 0 ; i < Names.length ; i++ ){
+                for (int j = 0 ; j < Names[i].length && count < 3 ; j++ , count++){
+                     pen.printf("%-40s" , remove_(Names[f][j]));
+                     for(int x = 0 ; x < ScoreT[i][j].length ; x++){
+                          pen.printf("%-10d" , ScoreT[f][j][x]);
+                        }
+                     pen.println();
+                    }
+                }
+             pen.println();
+             count = 0 ;
+        }
+       pen.close();
+    }
+    
+   //Create a method to to print winners from each department based on contest criteria
+   static void printWinnerAwardByEachDepartment(String[] departmentName, String[][] Names, int[][][] ScoreT ) throws FileNotFoundException, IOException{
+       File file = new File ("output");
+       FileWriter pen = new FileWriter(file, true);
+      
+       
+       //to compare and print the winner
+       for (int i = 0 ; i < departmentName.length ; i++){
+           if (ScoreT[i][0][5] > ScoreT[i][1][5] && ScoreT[i][0][5] > ScoreT[i][2][5])
+               pen.append("The winner of the " + remove_(departmentName[i]) + " is " + remove_(Names[i][0]) + " with total of " + ScoreT[i][0][5] +"\n");
+           else if (ScoreT[i][1][5] > ScoreT[i][0][5] && ScoreT[i][1][5] > ScoreT[i][2][5])
+               pen.append("The winner of the " + remove_(departmentName[i]) + " is " + remove_(Names[i][1]) + " with total of " + ScoreT[i][1][5]+"\n");
+           else 
+               pen.append("The winner of the " + remove_(departmentName[i]) + " is " + remove_(Names[i][2]) + " with total of " + ScoreT[i][2][5]+"\n");
+        }
+       pen.close();
+       
+   }
+   
+   //Create a method to find the winner of FCIT and print it to file
+   static void printWinnerAwardForCollege(String[] departmentName, String[][] Names, int[][][] ScoreT) throws FileNotFoundException, IOException{
+       File file = new File ("output");
+       FileWriter pen = new FileWriter(file, true);
+       
+       int count = 0;
+       int dep = 0;
+       int nam = 0;
+       for(int i = 0 ; i < departmentName.length ; i++)
+           for(int j = 0 ; j < Names[i].length ; j++)
+               if( ScoreT[i][j][5] > count ){
+                   count = ScoreT[i][j][5];
+                   i = dep;
+                   j = nam;
+               }
+                   
+                   
+       pen.append("The Winner of FCIT is " + remove_(Names[dep][nam]) + " from the " + remove_(departmentName[dep]) + " Department with total of " + count + "\n");
+               
+       pen.close();
+    }
+   
+}//class
