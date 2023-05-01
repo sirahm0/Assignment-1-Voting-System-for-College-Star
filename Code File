@@ -61,7 +61,7 @@ public class F4_2137574 {
    //Create a method to read Department_Name from file
    static String[] addDepartment() throws FileNotFoundException {
        
-        File file = new File("C:\\Users\\ahmal\\Documents\\NetBeansProjects\\F4_2137574\\input.txt.txt");
+        File file = new File("PATH FiLE");
         if (file.exists()) {
         Scanner input = new Scanner(file);
         String[] Depa = new String[3];
@@ -83,7 +83,7 @@ public class F4_2137574 {
    //Create a method  to read student name from file
    static String[][] addStudentsNames() throws FileNotFoundException{
         
-       File file = new File("C:\\Users\\ahmal\\Documents\\NetBeansProjects\\F4_2137574\\input.txt.txt");
+       File file = new File("PATH FiLE");
        if (file.exists()) {
        Scanner input = new Scanner(file);
         
@@ -109,7 +109,7 @@ public class F4_2137574 {
    static String[] addAwardCriteria()throws FileNotFoundException{
        
    
-       File file = new File("C:\\Users\\ahmal\\Documents\\NetBeansProjects\\F4_2137574\\input.txt.txt");
+       File file = new File("PATH FiLE");
         if (file.exists()) {
         Scanner input = new Scanner(file);
         String[] Award = new String[5];
@@ -129,7 +129,7 @@ public class F4_2137574 {
    
    //Create a method  to read score from file
    static int[][][] addScore() throws FileNotFoundException{
-       File file = new File("C:\\Users\\ahmal\\Documents\\NetBeansProjects\\F4_2137574\\input.txt.txt");
+       File file = new File("PATH FiLE");
         if (file.exists()) {
         Scanner input = new Scanner(file);
         int[][][] score = new int[3][3][5];
