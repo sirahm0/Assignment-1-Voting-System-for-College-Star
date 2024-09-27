@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-public class F4_2137574 {
+public class F4 {
 
     public static void main(String[] args) throws IOException {
         
